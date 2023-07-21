@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<textures>
+	<texture id="SplashScreenBackground" source=".\assets\img\backgrounds\Minato and Kushina.jpg"/>
+	<texture id="MainMenuBackground" source=".\assets\img\backgrounds\MainMenuBackground.jpg"/>
+	<texture id="OptionsMenuBackground" source=".\assets\img\backgrounds\OptionsMenuBackground.jpg"/>
+
+	<texture id="ExitButton" source=".\assets\img\buttons\ExitButton.png"/>
+	<texture id="OptionsButton" source=".\assets\img\buttons\OptionsButton.png"/>
+	<texture id="PlayButton" source=".\assets\img\buttons\PlayButton.png"/>
+	
+	<texture id="EnchantressIdle" source=".\assets\img\characters\Enchantress\Idle.png"/>
+</textures>

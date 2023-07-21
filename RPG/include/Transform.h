@@ -1,18 +1,23 @@
 #pragma once
+#include "ECS.h"
 #include "Vector2D.h"
 
-class Transform
+class Transform : public Component
 {
 public:
-	float X = 0, Y = 0;
-
 	Transform() {}
-	Transform(float x = 0, float y = 0) :X(x), Y(y) {}
+	virtual ~Transform() {}
 
-	void TranslateX(float x) { X += x; }
-	void TranslateY(float y) { Y += y; }
-	void Translate(Vector2D<float> v) { X += v.X; Y += v.Y; }
+	Transform(float x, float y)
+	{
+		position.X = x;
+		position.Y = y;
+		rotation = 0.0f;
+	}
 
+	Vector2Df position;
+	Vector2Df scale;
+
+	float rotation = 0.0f;
 private:
-
 };

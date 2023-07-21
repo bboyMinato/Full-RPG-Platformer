@@ -157,8 +157,8 @@
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\CGameState.h" />
+    <ClInclude Include="include\ECS.h" />
     <ClInclude Include="include\Engine.h" />
-    <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\GameMap.h" />
     <ClInclude Include="include\GameState.h" />
     <ClInclude Include="include\Input.h" />
@@ -271,7 +271,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\Button.png" />
-    <Image Include="assets\Button1.png" />
     <Image Include="assets\cursor.png" />
     <Image Include="assets\Enchantress\Idle.png" />
     <Image Include="assets\ExitButton.png" />
@@ -296,6 +295,9 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\Fonts\Anime Kids\Anime Kids.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="assets\Img\Textures.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

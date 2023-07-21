@@ -12,21 +12,21 @@ public:
 	
 	
 	//addition
-	Vector2D operator+(const Vector2D& v2) const
+	Vector2D<T> operator+(const Vector2D<T>& v2) const
 	{
-		return Vector2D(X + v2.X, Y + v2.Y);
+		return Vector2D<T>(X + v2.X, Y + v2.Y);
 	}
 
 	//substraction
-	Vector2D operator-(const Vector2D& v2) const
+	Vector2D<T> operator-(const Vector2D<T>& v2) const
 	{
-		return Vector2D(X - v2.X, Y - v2.Y);
+		return Vector2D<T>(X - v2.X, Y - v2.Y);
 	}
 
 	//mupltiplication	
-	Vector2D operator*(const float scalar) const
+	Vector2D<T> operator*(const float scalar) const
 	{
-		return Vector2D(X * scalar, Y * scalar);
+		return Vector2D<T>(X * scalar, Y * scalar);
 	}
 
 	void Log(std::string msg = "")
@@ -36,3 +36,5 @@ public:
 
 private:
 };
+
+using Vector2Df = Vector2D<float>;

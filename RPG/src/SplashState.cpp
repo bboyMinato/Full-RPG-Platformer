@@ -9,7 +9,7 @@ SplashState::SplashState(GameDataRef data) : _data(data)
 
 void SplashState::Init()
 {
-	TextureManager::GetInstance()->LoadTexture("background", "assets\\Minato and Kushina.jpg");		
+	
 }
 
 void SplashState::HandleEvents()
@@ -32,7 +32,7 @@ void SplashState::Render(float dt)
 	SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 200, 0, 255, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(Engine::GetInstance()->GetRenderer());
 
-	TextureManager::GetInstance()->Draw("background", 0, 0, 1920, 1080);
+	TextureManager::GetInstance()->Draw("SplashScreenBackground", 0, 0, 1920, 1080);
 
 	SDL_RenderPresent(Engine::GetInstance()->GetRenderer());
 }

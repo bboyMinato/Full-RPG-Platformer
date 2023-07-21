@@ -8,7 +8,7 @@
 class Button
 {
 public:
-	Button(std::string id, std::string filepath, int x, int y);
+	Button(std::string id, int x, int y);
 	Button(std::string id, std::string filepath, int x, int y, void (*callback)());
 	Button() {}
 	~Button();
@@ -20,7 +20,7 @@ public:
 	void SetPosition(int x, int y);
 	std::vector<Button*> GetButtons();
 
-private:
+private:	
 	SDL_Rect _rect = { 0, 0, 0, 0 };
 	std::vector<Button*> _buttons;
 	Vector2D<int> _mousepos;

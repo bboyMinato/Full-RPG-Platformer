@@ -12,10 +12,8 @@ GameState::GameState(GameDataRef data) : _data(data)
 
 void GameState::Init()
 {
-	TextureManager::GetInstance()->LoadTexture("player", "assets\\Enchantress\\Idle.png");
-	
 	_animation = new SpriteAnimation();
-	_animation->SetProps("player", 0, 5, 60);
+	_animation->SetProps("EnchantressIdle", 0, 5, 60);
 
 	if (!MapParser::GetInstance()->Load())
 		std::cout << "Failed to load the map!" << std::endl;

@@ -33,6 +33,8 @@ public:
 	void Events();
 	void Update();	
 
+	static void OpenOptions();
+
 private:
 	Engine() {};
 	static Engine* _instance;

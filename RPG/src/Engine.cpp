@@ -29,6 +29,8 @@ void Engine::Init()
 		std::cout << "Renderer has failed to initialize! Error: " << SDL_GetError() << std::endl;	
 	
 	_data->_text.LoadFont("Anime Kids", "assets\\Fonts\\Anime Kids\\Anime Kids.otf", 85);		
+	
+	TextureManager::GetInstance()->ParseTexture("assets\\img\\textures.xml");
 
 	_data->_stateManager.AddState(CGameStateRef(new SplashState(_data)));	
 }
@@ -88,5 +90,5 @@ void Engine::Update()
 
 void Engine::OpenOptions()
 {
-	_data->_stateManager.AddState(CGameStateRef(new OptionsState(_data)), true);
+	
 }

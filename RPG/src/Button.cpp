@@ -4,10 +4,8 @@
 #include "..\include\SplashState.h"
 #include "..\include\Input.h"
 
-Button::Button(std::string id, std::string filepath, int x, int y) 
-{
-	TextureManager::GetInstance()->LoadTexture(id, filepath);	
-
+Button::Button(std::string id, int x, int y) 
+{	
 	_rect.x = x;
 	_rect.y = y;
 	SDL_QueryTexture(TextureManager::GetInstance()->GetTexture(id), NULL, NULL, &_rect.w, &_rect.h);

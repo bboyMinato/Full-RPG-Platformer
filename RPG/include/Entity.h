@@ -20,12 +20,12 @@ public:
 	std::string _textureID;
 };
 
-class Entity
+class Entitya
 {
 public:
-	Entity() {}
+	Entitya() {}
 
-	Entity(Properties* props) : _textureID(props->_textureID), _width(props->_width), _height(props->_height)
+	Entitya(Properties* props) : _textureID(props->_textureID), _width(props->_width), _height(props->_height)
 	{
 		_transform = new Transform(props->_x, props->_y);
 	}

@@ -10,7 +10,7 @@ class CStateManager
 public:
 	CStateManager();
 	~CStateManager() {}
-
+		
 	void AddState(CGameStateRef toAdd, bool replace = false);
 	void PopCurrentState();
 	void ProccessStateChange();

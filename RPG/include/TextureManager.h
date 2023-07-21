@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL_image.h"
+#include "tinyxml.h"
 #include <string>
 #include <iostream>
 #include <map>
@@ -11,6 +12,7 @@ public:
 		
 	SDL_Texture* LoadTexture(std::string id, std::string filepath);
 	SDL_Texture* GetTexture(std::string id);
+	bool ParseTexture(std::string source);
 
 	void Draw(std::string id, int x, int y, int width, int height);
 	void DrawFrame(std::string id, int x, int y, int width, int height, int row, int frame, float scale = 1, SDL_RendererFlip flip = SDL_FLIP_NONE);
