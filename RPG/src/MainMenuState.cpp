@@ -5,6 +5,7 @@
 #include "..\include\Input.h"
 #include "..\include\Transform.h"
 
+
 #include <iostream>
 
 MainMenuState::MainMenuState(GameDataRef data) : _data(data)
@@ -23,12 +24,7 @@ void MainMenuState::Init()
 
 	playButton = new Button("PlayButton", 850, 400);
 	optionsButton = new Button("OptionsButton", 850, 600);
-	exitButton = new Button("ExitButton", 850, 800);	
-
-	Entity* player = new Entity();
-	player->AddComponent<Transform>(100, 100);
-
-	std::cout << player->GetComponent<Transform>().position.X << std::endl;
+	exitButton = new Button("ExitButton", 850, 800);		
 }
 
 void MainMenuState::HandleEvents()

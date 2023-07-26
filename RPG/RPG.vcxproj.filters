@@ -78,6 +78,9 @@
     <ClCompile Include="src\OptionsState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\EntityManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\SDL2\include\begin_code.h">
@@ -423,6 +426,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EntityManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

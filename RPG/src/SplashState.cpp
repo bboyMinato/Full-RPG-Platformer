@@ -21,7 +21,7 @@ void SplashState::Update(float dt)
 {
 	timer = SDL_GetTicks() / 1000.f;
 
-	if (timer > 3 || Input::GetInstance()->GetKeyDown(SDL_SCANCODE_ESCAPE))
+	if (timer > 5 || Input::GetInstance()->GetKeyDown(SDL_SCANCODE_ESCAPE))
 	{		
 		_data->_stateManager.AddState(CGameStateRef(new MainMenuState(_data)), true);
 	}

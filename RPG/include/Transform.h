@@ -5,18 +5,25 @@
 class Transform : public Component
 {
 public:
-	Transform() {}
-	virtual ~Transform() {}
+	Transform() 
+	{
+		position.Zero();
+		scale.One();
+		rotation = 0.0f;
+	}	
 
 	Transform(float x, float y)
 	{
 		position.X = x;
 		position.Y = y;
+		scale.One();
 		rotation = 0.0f;
 	}
 
+	virtual ~Transform() {}
+
 	Vector2Df position;
-	Vector2Df scale;
+	Vector2Df scale = {1.0f, 1.0f};
 
 	float rotation = 0.0f;
 private:

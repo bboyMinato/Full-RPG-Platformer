@@ -1,6 +1,5 @@
 #include "..\include\Button.h"
 #include "..\include\TextureManager.h"
-#include "..\include\Entity.h"
 #include "..\include\SplashState.h"
 #include "..\include\Input.h"
 

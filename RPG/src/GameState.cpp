@@ -3,6 +3,8 @@
 #include "..\include\TextureManager.h"
 #include "..\include\Input.h"
 #include "..\include\MapParser.h"
+#include "..\include\Transform.h"
+#include "..\include\Sprite.h"
 #include <iostream>
 
 GameState::GameState(GameDataRef data) : _data(data)
@@ -23,6 +25,14 @@ void GameState::Init()
 	_data->_soundManager.LoadMusic("Rising Sun", "assets\\SFX\\Rising Sun.mp3");
 	_data->_soundManager.SetMusicVolume(20);
 	_data->_soundManager.PlayMusic(-1);
+
+	manager = new EntityManager();
+
+	Entity* player = new Entity();
+	manager->AddEntity(player);
+
+	player->AddComponent<Transform>(100, 100);	
+	//player->AddComponent<Sprite>(Engine::GetInstance()->GetRenderer(), "ExitButton");	
 }
 
 void GameState::HandleEvents()
@@ -36,7 +46,7 @@ void GameState::HandleEvents()
 void GameState::Update(float dt)
 {
 	_animation->Update();
-	//_levelMap->Update();
+	_levelMap->Update();
 }
 
 void GameState::Render(float dt)
@@ -44,8 +54,9 @@ void GameState::Render(float dt)
 	SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(Engine::GetInstance()->GetRenderer());
 			
-	_levelMap->Render();
+	_levelMap->Render();	
 	_animation->Draw(100, 100, 128, 70, 1, 1);
+	//manager->Draw();
 
 	SDL_RenderPresent(Engine::GetInstance()->GetRenderer());
 }

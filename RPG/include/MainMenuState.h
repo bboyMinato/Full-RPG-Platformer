@@ -2,7 +2,6 @@
 #include "CGameState.h"
 #include "Engine.h"
 #include "Vector2D.h"
-#include "ECS.h"
 
 class MainMenuState : public CGameState
 {
