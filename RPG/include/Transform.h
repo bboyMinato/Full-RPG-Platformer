@@ -22,7 +22,7 @@ public:
 
 	virtual ~Transform() {}
 
-	Vector2Df position;
+	Vector2Df position = Vector2Df();
 	Vector2Df scale = {1.0f, 1.0f};
 
 	float rotation = 0.0f;

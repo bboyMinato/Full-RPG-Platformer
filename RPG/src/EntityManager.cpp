@@ -1,5 +1,5 @@
-#include "EntityManager.h"
-#include "ECS.h"
+#include "..\include\EntityManager.h"
+#include "..\include\Entity.h"
 
 void EntityManager::Draw()
 {

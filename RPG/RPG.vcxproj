@@ -130,7 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\EntityManager.cpp" />
+    <ClCompile Include="src\EntityManager.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Engine.cpp" />
@@ -160,6 +160,7 @@
     <ClInclude Include="include\CGameState.h" />
     <ClInclude Include="include\ECS.h" />
     <ClInclude Include="include\Engine.h" />
+    <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityManager.h" />
     <ClInclude Include="include\GameMap.h" />
     <ClInclude Include="include\GameState.h" />

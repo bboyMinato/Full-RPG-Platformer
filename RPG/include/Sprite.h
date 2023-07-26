@@ -2,9 +2,9 @@
 #include <string>
 #include "SDL.h"
 #include "EntityManager.h"
-#include "ECS.h"
 #include "Transform.h"
 #include "TextureManager.h"
+#include "Entity.h"
 
 class Sprite : public Component
 {
@@ -15,15 +15,12 @@ public:
 
 	bool Init() override final
 	{	
-		transform = &entity->GetComponent<Transform>();	
-
-		std::cout << "okay" << std::endl;
+		transform = &entity->GetComponent<Transform>();			
 		
-		/*texture = TextureManager::GetInstance()->GetTexture(textureID);
+		texture = TextureManager::GetInstance()->GetTexture(textureID);
+		SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 
-		SDL_QueryTexture(texture, NULL, NULL, &width, &height);*/
-
-		/*dstRect.x = transform->position.X;
+		dstRect.x = transform->position.X;
 		dstRect.y = transform->position.Y;
 		dstRect.w = width * transform->scale.X;
 		dstRect.h = height * transform->scale.Y;
@@ -31,7 +28,7 @@ public:
 		srcRect.x = 0;
 		srcRect.y = 0;
 		srcRect.w = width;
-		srcRect.h = height;	*/
+		srcRect.h = height;	
 
 		return true;
 	}

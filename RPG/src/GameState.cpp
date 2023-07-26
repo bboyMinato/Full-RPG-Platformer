@@ -30,9 +30,9 @@ void GameState::Init()
 
 	Entity* player = new Entity();
 	manager->AddEntity(player);
-
-	player->AddComponent<Transform>(100, 100);	
-	//player->AddComponent<Sprite>(Engine::GetInstance()->GetRenderer(), "ExitButton");	
+			
+	player->GetComponent<Transform>().position = Vector2Df(1000, 100);	
+	player->AddComponent<Sprite>(Engine::GetInstance()->GetRenderer(), "ExitButton");	
 }
 
 void GameState::HandleEvents()
@@ -56,7 +56,7 @@ void GameState::Render(float dt)
 			
 	_levelMap->Render();	
 	_animation->Draw(100, 100, 128, 70, 1, 1);
-	//manager->Draw();
+	manager->Draw();
 
 	SDL_RenderPresent(Engine::GetInstance()->GetRenderer());
 }
