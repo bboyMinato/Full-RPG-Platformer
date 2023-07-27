@@ -54,9 +54,6 @@
     <ClCompile Include="src\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SpriteAnimation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\MapParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -386,9 +383,6 @@
     <ClInclude Include="include\GameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Animation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Layer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -402,9 +396,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\GameMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SpriteAnimation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\MapParser.h">
@@ -422,19 +413,25 @@
     <ClInclude Include="include\OptionsState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ECS.h">
+    <ClInclude Include="include\ECS\ECS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Transform.h">
+    <ClInclude Include="include\ECS\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\EntityManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Sprite.h">
+    <ClInclude Include="include\ECS\Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Entity.h">
+    <ClInclude Include="include\ECS\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\RigidBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\SpriteAnimation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

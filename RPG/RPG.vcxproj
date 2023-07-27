@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>vendor\SDL2 TTF\include;vendor\SDL2\include;vendor\TinyXML;vendor\SDL2 Mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include\ECS;vendor\SDL2 TTF\include;vendor\SDL2\include;vendor\TinyXML;vendor\SDL2 Mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,7 +144,6 @@
     <ClCompile Include="src\OptionsState.cpp" />
     <ClCompile Include="src\SoundManager.cpp" />
     <ClCompile Include="src\SplashState.cpp" />
-    <ClCompile Include="src\SpriteAnimation.cpp" />
     <ClCompile Include="src\Text.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\TileLayer.cpp" />
@@ -154,13 +153,14 @@
     <ClCompile Include="vendor\TinyXML\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Animation.h" />
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\CGameState.h" />
-    <ClInclude Include="include\ECS.h" />
+    <ClInclude Include="include\ECS\ECS.h" />
+    <ClInclude Include="include\ECS\RigidBody.h" />
+    <ClInclude Include="include\ECS\SpriteAnimation.h" />
     <ClInclude Include="include\Engine.h" />
-    <ClInclude Include="include\Entity.h" />
+    <ClInclude Include="include\ECS\Entity.h" />
     <ClInclude Include="include\EntityManager.h" />
     <ClInclude Include="include\GameMap.h" />
     <ClInclude Include="include\GameState.h" />
@@ -174,12 +174,11 @@
     <ClInclude Include="include\Point.h" />
     <ClInclude Include="include\SoundManager.h" />
     <ClInclude Include="include\SplashState.h" />
-    <ClInclude Include="include\Sprite.h" />
-    <ClInclude Include="include\SpriteAnimation.h" />
+    <ClInclude Include="include\ECS\Sprite.h" />
     <ClInclude Include="include\Text.h" />
     <ClInclude Include="include\TextureManager.h" />
     <ClInclude Include="include\TileLayer.h" />
-    <ClInclude Include="include\Transform.h" />
+    <ClInclude Include="include\ECS\Transform.h" />
     <ClInclude Include="include\Vector2D.h" />
     <ClInclude Include="vendor\SDL2\include\begin_code.h" />
     <ClInclude Include="vendor\SDL2\include\close_code.h" />

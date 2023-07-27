@@ -16,6 +16,13 @@ public:
 		return Vector2D<T>(X + v2.X, Y + v2.Y);
 	}
 
+	inline friend Vector2D<T>& operator+=(Vector2D<T>& v1, const Vector2D<T>& v2)
+	{
+		v1.X += v2.X;
+		v1.Y += v2.Y;
+		return v1;
+	}
+
 	//substraction
 	inline Vector2D<T> operator-(const Vector2D<T>& v2) const
 	{

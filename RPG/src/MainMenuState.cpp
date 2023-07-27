@@ -1,9 +1,9 @@
-#include "..\include\MainMenuState.h"
-#include "..\include\OptionsState.h"
-#include "..\include\GameState.h"
-#include "..\include\TextureManager.h"
-#include "..\include\Input.h"
-#include "..\include\Transform.h"
+#include "MainMenuState.h"
+#include "OptionsState.h"
+#include "GameState.h"
+#include "TextureManager.h"
+#include "Input.h"
+#include "Transform.h"
 
 
 #include <iostream>

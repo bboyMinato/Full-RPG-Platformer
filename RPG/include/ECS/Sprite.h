@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include "SDL.h"
-#include "EntityManager.h"
 #include "Transform.h"
 #include "TextureManager.h"
 #include "Entity.h"
@@ -20,10 +19,10 @@ public:
 		texture = TextureManager::GetInstance()->GetTexture(textureID);
 		SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 
-		dstRect.x = transform->position.X;
-		dstRect.y = transform->position.Y;
-		dstRect.w = width * transform->scale.X;
-		dstRect.h = height * transform->scale.Y;
+		dstRect.x = static_cast<int>(transform->position.X);
+		dstRect.y = static_cast<int>(transform->position.Y);
+		dstRect.w = static_cast<int>(width * transform->scale.X);
+		dstRect.h = static_cast<int>(height * transform->scale.Y);
 
 		srcRect.x = 0;
 		srcRect.y = 0;
