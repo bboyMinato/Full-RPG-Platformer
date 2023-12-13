@@ -39,12 +39,12 @@ public:
 	}
 
 	template<typename T>
-	inline bool  HasComponent() const
+	inline bool HasComponent() const
 	{
 		return _componentBitset[GetComponentTypeID<T>()];
 	}
 
-	/*inline bool IsAlive() const
+	inline bool IsAlive() const
 	{
 		return active;
 	}
@@ -52,7 +52,7 @@ public:
 	inline void Destroy()
 	{
 		active = false;
-	}*/
+	}
 
 	inline void Draw()
 	{
@@ -67,7 +67,7 @@ public:
 	}
 
 private:
-	//bool active = true;
+	bool active = true;
 	ComponentArray _componentArray;
 	ComponentBitset _componentBitset;
 	std::vector<std::unique_ptr<Component>> _components;

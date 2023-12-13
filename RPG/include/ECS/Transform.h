@@ -27,6 +27,12 @@ public:
 		position += v;		
 	}
 
+	void Translate(float x, float y)
+	{
+		position.X += x;
+		position.Y += y; 
+	}
+
 	Vector2Df position = Vector2Df();
 	Vector2Df scale = {1.0f, 1.0f};
 

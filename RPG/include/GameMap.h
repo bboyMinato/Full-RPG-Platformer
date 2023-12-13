@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <iostream>
 #include "Layer.h"
 
 class GameMap
@@ -21,7 +22,10 @@ public:
 		}
 	}
 
-	std::vector<Layer*> GetMapLayers() { return _mapLayers; }
+	std::vector<Layer*> GetMapLayers() 
+	{ 		
+		return _mapLayers; 
+	}
 
 private:
 	friend class MapParser;

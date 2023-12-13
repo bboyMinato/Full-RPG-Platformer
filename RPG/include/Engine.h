@@ -8,6 +8,7 @@
 #include "Button.h"
 #include "Mouse.h"
 #include "Text.h"
+#include "GameMap.h"
 
 struct GameData
 {
@@ -35,6 +36,8 @@ public:
 
 	static void OpenOptions();
 
+	GameMap* GetMap() { return _levelMap; }
+	void SetMap(GameMap* Map) { _levelMap = Map; }
 private:
 	Engine() {};
 	static Engine* _instance;
@@ -44,5 +47,6 @@ private:
 	bool _isRunning = false;
 	const float dt = 1.f / 60.f;
 			
-	SDL_Renderer* _renderer = nullptr;	
+	SDL_Renderer* _renderer = nullptr;		
+	GameMap* _levelMap;
 };

@@ -10,7 +10,12 @@ class Sprite : public Component
 public:
 	Sprite() = default;
 	Sprite(SDL_Renderer* target, std::string textureid) : rTarget(target), textureID(textureid) {}
-	virtual ~Sprite() = default;
+	
+	~Sprite()
+	{
+		SDL_DestroyTexture(texture);
+	}
+
 
 	bool Init() override final
 	{	

@@ -31,7 +31,7 @@ bool MapParser::Parse(std::string id, std::string source)
 
     if (xml.Error())
     {
-        std::cerr << "Failed to load: " << source << std::endl;
+        std::cerr << "Failed to load: " << source << "Error: " << xml.ErrorDesc() << std::endl;
         return false;
     }
 
@@ -41,6 +41,12 @@ bool MapParser::Parse(std::string id, std::string source)
     TiXmlElement* root = xml.RootElement();
     int rowcount, colcount, tilesize = 0;
 
+    int rowCount, colCount;
+    if (root->QueryIntAttribute("width", &colCount) != TIXML_SUCCESS || root->QueryIntAttribute("height", &rowCount) != TIXML_SUCCESS) 
+    {
+        throw std::runtime_error("Invalid Tiled map format. Missing or invalid 'width' or 'height' attribute.");
+    }
+
     root->Attribute("width", &colcount);
     root->Attribute("height", &rowcount);
     root->Attribute("tilewidth", &tilesize);
@@ -49,8 +55,10 @@ bool MapParser::Parse(std::string id, std::string source)
     TileSetList tilesets;
     for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
     {
-        if (e->Value() == std::string("tileset"))
+        if (strcmp(e->Value(), "tileset") == 0)
+        {
             tilesets.push_back(ParseTileset(e));
+        }           
     }
 
     //parse layers
@@ -60,8 +68,13 @@ bool MapParser::Parse(std::string id, std::string source)
         if (e->Value() == std::string("layer"))
         {
             TileLayer* tilelayer = ParseTileLayer(e, tilesets, tilesize, rowcount, colcount);
-            gameMap->_mapLayers.push_back(tilelayer);
+            gameMap->_mapLayers.push_back(tilelayer);          
         }
+    }
+
+    for (TiXmlElement* layerElement = root->FirstChildElement("layer"); layerElement; layerElement = layerElement->NextSiblingElement("layer")) {
+        TileLayer* tileLayer = ParseTileLayer(layerElement, tilesets, tilesize, rowcount, colcount);
+        gameMap->_mapLayers.push_back(tileLayer);
     }
 
     _maps[id] = gameMap;
@@ -101,18 +114,16 @@ TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, TileSetList tileset
     TiXmlElement* data;
     std::string matrix;
 
-    std::cout << matrix << std::endl;
-
     for (TiXmlElement* e = xmlLayer->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
     {
-        if (e->Value() == std::string("data"))
+        if (strcmp(e->Value(), "data") == 0)
         {
             data = e;
             matrix = data->GetText();
             break;
         }
     }
-
+    
     std::istringstream iss(matrix);
     std::string id;
 

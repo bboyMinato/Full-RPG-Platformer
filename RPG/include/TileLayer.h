@@ -22,10 +22,12 @@ public:
 	virtual void Render();
 	virtual void Update();
 	inline TileMap GetTileMap() { return _tileMap; }
+	
 
-private:
-	int _tileSize;
-	int _rowCount, _colCount;
+	int _tileSize = 0;
+	int _rowCount = 0;
+	int _colCount = 0;
+private:	
 	TileMap _tileMap;
 	TileSetList _tileSets;
 };

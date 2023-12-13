@@ -15,6 +15,7 @@ public:
 	bool ParseTexture(std::string source);
 
 	void Draw(std::string id, int x, int y, int width, int height);
+	void Draw(SDL_Rect box);
 	void DrawFrame(std::string id, int x, int y, int width, int height, int row, int frame, float scale = 1, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	void DrawTile(std::string tilesetID, int tileSize, int x, int y, int row, int col, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	void Clean();

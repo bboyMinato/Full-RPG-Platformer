@@ -63,6 +63,16 @@ public:
 		frameCount = framecount;
 	}
 
+	int GetWidth() const
+	{
+		return width / frameCount;
+	}
+
+	int GetHeight() const
+	{
+		return height;
+	}
+
 private:
 	bool repeat = true;
 	int width = 0;
@@ -72,6 +82,7 @@ private:
 	int frameCount = 0;
 	int currentFrame = 0;
 	std::string textureID = "";
+
 	SDL_Rect srcRect = { 0,0,0,0 };
 	SDL_Rect dstRect = { 0,0,0,0 };
 

@@ -55,6 +55,12 @@ void TextureManager::Draw(std::string id, int x, int y, int width, int height)
 	SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), _textureMap[id], &src, &dst);
 }
 
+void TextureManager::Draw(SDL_Rect box)
+{		
+	SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 255, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawRect(Engine::GetInstance()->GetRenderer(), &box);
+}
+
 void TextureManager::DrawFrame(std::string id, int x, int y, int width, int height, int row, int frame, float scale, SDL_RendererFlip flip)
 {
 	Vector2D<int> cam = Camera::GetInstance()->GetPosition();
@@ -75,6 +81,8 @@ void TextureManager::Clean()
 {
 	for (auto it = _textureMap.begin(); it != _textureMap.end(); it++)
 		SDL_DestroyTexture(it->second);
+
+	SDL_DestroyTexture(_texture);
 
 	_textureMap.clear();
 }
