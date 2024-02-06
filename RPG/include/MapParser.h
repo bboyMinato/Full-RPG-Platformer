@@ -1,9 +1,10 @@
 #pragma once
 #include <map>
 #include <string>
-#include "GameMap.h"
 #include "TileLayer.h"
 #include "tinyxml.h"
+
+class GameMap;
 
 class MapParser
 {

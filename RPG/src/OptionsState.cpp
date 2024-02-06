@@ -16,7 +16,7 @@ void OptionsState::HandleEvents()
 {
 	Input::GetInstance()->HandleEvents();
 
-	if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_F1))
+	if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_ESCAPE))
 		_data->_stateManager.PopCurrentState();
 
 	if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_F5))

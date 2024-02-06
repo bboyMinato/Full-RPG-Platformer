@@ -3,6 +3,7 @@
 #include "..\include\Input.h"
 #include "..\include\SplashState.h"
 #include "..\include\OptionsState.h"
+#include "..\include\GameState.h"
 Engine* Engine::_instance = nullptr;
 
 void Engine::Init()
@@ -32,7 +33,8 @@ void Engine::Init()
 	
 	TextureManager::GetInstance()->ParseTexture("assets\\img\\textures.xml");
 
-	_data->_stateManager.AddState(CGameStateRef(new SplashState(_data)));	
+	//_data->_stateManager.AddState(CGameStateRef(new SplashState(_data)));	
+	_data->_stateManager.AddState(CGameStateRef(new GameState(_data)), true);
 }
 
 void Engine::Clean()
@@ -55,6 +57,30 @@ void Engine::Events()
 
 void Engine::Update()
 {		
+	Uint64 lastTime = SDL_GetPerformanceCounter();
+
+	while (_isRunning)
+	{		
+		Uint64 startTime = SDL_GetPerformanceCounter();
+
+		_data->_stateManager.ProccessStateChange();
+
+		Uint64 newTime = SDL_GetPerformanceCounter();
+		deltaTime = (newTime - lastTime) / (float)SDL_GetPerformanceFrequency();
+		lastTime = newTime;
+		lastTime = SDL_GetPerformanceCounter();
+
+		_data->_stateManager.GetCurrentState()->HandleEvents();
+		_data->_stateManager.GetCurrentState()->Update(deltaTime);
+		_data->_stateManager.GetCurrentState()->Render(deltaTime);
+
+		Uint64 endTime = SDL_GetPerformanceCounter();
+		float frameTime = (endTime - startTime) / (float)SDL_GetPerformanceFrequency();
+	}
+}
+
+void Engine::FrameRateTest()
+{
 	Uint32 currentTime, newTime;
 	float frameTime, interpolation;
 
@@ -67,28 +93,23 @@ void Engine::Update()
 
 		newTime = SDL_GetTicks();
 
-		frameTime = newTime - currentTime;		
+		frameTime = newTime - currentTime;
 
 		if (frameTime > 0.25f)
 			frameTime = 0.25f;
 
 		currentTime = newTime;
-		accumlator += frameTime;		
+		accumlator += frameTime;
 
-		while (accumlator >= dt)
+		while (accumlator >= deltaTime)
 		{
 			_data->_stateManager.GetCurrentState()->HandleEvents();
-			_data->_stateManager.GetCurrentState()->Update(dt);
+			_data->_stateManager.GetCurrentState()->Update(deltaTime);
 
-			accumlator -= dt;
+			accumlator -= deltaTime;
 		}
 
-		interpolation = accumlator / dt;
+		interpolation = accumlator / deltaTime;
 		_data->_stateManager.GetCurrentState()->Render(interpolation);
-	}	
-}
-
-void Engine::OpenOptions()
-{
-	
+	}
 }

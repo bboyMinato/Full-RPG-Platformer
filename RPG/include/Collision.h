@@ -11,9 +11,8 @@ public:
 	static Collision* GetInstance() { return _instance = (_instance != nullptr) ? _instance : new Collision(); }
 
 	bool AABB(const SDL_Rect rectA, const SDL_Rect rectB);
-	bool MapCollision(SDL_Rect rectA, Vector2Df interpolation);
-
-
+	bool CollisionWithMap(SDL_Rect rectA);
+	
 private:
 	Collision();
 

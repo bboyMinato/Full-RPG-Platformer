@@ -29,6 +29,5 @@ private:
 	GameMap* _levelMap = nullptr;
 	
 	Entity* Player = nullptr;
-	Entity* Test = nullptr;
 };
 

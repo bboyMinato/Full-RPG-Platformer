@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <chrono>
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
@@ -34,19 +35,21 @@ public:
 	void Events();
 	void Update();	
 
-	static void OpenOptions();
-
 	GameMap* GetMap() { return _levelMap; }
 	void SetMap(GameMap* Map) { _levelMap = Map; }
+	inline float GetDeltaTime() { return deltaTime; }
+
 private:
 	Engine() {};
 	static Engine* _instance;
 
 	GameDataRef _data = std::make_shared<GameData>();
+	SDL_Renderer* _renderer = nullptr;
+	GameMap* _levelMap = nullptr;
 
-	bool _isRunning = false;
-	const float dt = 1.f / 60.f;
-			
-	SDL_Renderer* _renderer = nullptr;		
-	GameMap* _levelMap;
+	bool _isRunning = false;	
+	float deltaTime = 0; 
+
+
+	void FrameRateTest();
 };

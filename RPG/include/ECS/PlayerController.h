@@ -20,29 +20,22 @@ public:
 
 	void Update() override final
 	{
-		entity->GetComponent<RigidBody>().UnsetForce();
-
 		if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D))
 		{
-			entity->GetComponent<RigidBody>().SetForceX(0.1);
+			entity->GetComponent<RigidBody>().SetForceX(1);
 		}
 
 		if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A))
 		{
-			entity->GetComponent<RigidBody>().SetForceX(-0.1);
+			entity->GetComponent<RigidBody>().SetForceX(-1);
 		}
 
-		if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_W))
+		if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE) && entity->GetComponent<RigidBody>().IsGrounded())
 		{
-			entity->GetComponent<RigidBody>().SetForceY(-0.1);
-		}
-
-		if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_S))
-		{
-			entity->GetComponent<RigidBody>().SetForceY(0.1);
-		}
+			entity->GetComponent<RigidBody>().Jump();		
+		}		
 	}
-
+	
 private:
 	Transform* transform = nullptr;	
 };

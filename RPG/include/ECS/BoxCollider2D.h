@@ -42,8 +42,8 @@ public:
 
 	void Update() override final
 	{
-		Box.x = static_cast<int>(transform->position.X);
-		Box.y = static_cast<int>(transform->position.Y);			
+		Box.x = static_cast<int>(transform->Position.X);
+		Box.y = static_cast<int>(transform->Position.Y);			
 	}
 
 	inline std::string GetCollisionTag() const 

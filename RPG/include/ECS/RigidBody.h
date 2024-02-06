@@ -4,6 +4,7 @@
 #include "Vector2D.h"
 #include "BoxCollider2D.h"
 #include "Collision.h"
+#include "Engine.h"
 
 constexpr float GRAVITY = 9.81f;
 
@@ -22,45 +23,31 @@ public:
 	}
 
 	void Update() override final
-	{					
-		LastSafePosition.X = transform->position.X;
-		LastSafePosition.Y = transform->position.Y;
-
-		Vector2Df interpolated;
-		interpolated.X = LastSafePosition.X;
-		interpolated.Y = LastSafePosition.Y;		
+	{	
+		SDL_Rect playerCollider = entity->GetComponent<BoxCollider2D>().GetBoxCollider();
 
 		velocity.X = force.X - drag.X;
-		velocity.Y = force.Y + drag.Y + gravityScale * GRAVITY;
+		velocity.Y = force.Y + drag.Y + gravityScale * GRAVITY;		
 
-		const float ccdTimeStep = 0.01f;
-		float remainingTime = 1.f;
-
-		
-		while (remainingTime > 0.f)
+		LastSafePosition.X = transform->Position.X;
+		transform->TranslateX(velocity.X);
+		playerCollider.x = transform->Position.X;
+		if (Collision::GetInstance()->CollisionWithMap(playerCollider))
 		{
-			interpolated.X = LastSafePosition.X + velocity.X * remainingTime;
-			interpolated.Y = LastSafePosition.Y + velocity.Y * remainingTime;
+			transform->Position.X = LastSafePosition.X;
+			isGrounded = false; 
+		}
 
-			// Check for collision at the interpolated position
-			if (Collision::GetInstance()->MapCollision(entity->GetComponent<BoxCollider2D>().GetBoxCollider(), interpolated)) 
-			{
-				// Handle the collision response
-				transform->position.X = interpolated.X;
-				transform->position.Y = interpolated.Y;
-
-				// Break the loop since we've handled the collision
-				break;
-			}
-
-			// Reduce remaining time
-			remainingTime -= ccdTimeStep;
+		LastSafePosition.Y = transform->Position.Y;
+		transform->TranslateY(velocity.Y);
+		playerCollider.y = transform->Position.Y;
+		if (Collision::GetInstance()->CollisionWithMap(playerCollider))
+		{
+			isGrounded = true; 
+			transform->Position.Y = LastSafePosition.Y;
 		}			
 
-		// If no collision is detected, update the position normally
-		if (remainingTime <= 0.0f) {
-			transform->Translate(velocity);
-		}
+		UnsetForce();
 	}
 
 	void SetForce(const Vector2Df f)
@@ -83,13 +70,37 @@ public:
 		force = Vector2Df(0, 0);
 	}
 
+
+	inline bool IsGrounded() const
+	{
+		return isGrounded;
+	}
+
+	void Jump()
+	{	
+		isGrounded = false; 			
+		jumpTime = 5.f;
+		float jumpTimeStep = 0.5f;
+
+		while (jumpTime > 0)
+		{
+			jumpTime -= jumpTimeStep;	
+			velocity.Y += -5.5f + gravityScale * GRAVITY;
+			transform->TranslateY(velocity.Y);			
+		}
+	}
+
 private:
 	float gravityScale = 1.0f;
+	float mass = 1.0f;
 	Vector2Df drag = Vector2Df();
 	Vector2Df force = Vector2Df();
 	Vector2Df velocity = Vector2Df();
-	Vector2Df LastSafePosition = Vector2Df();
+	Vector2Df LastSafePosition = Vector2Df();	
 
-	Transform* transform = nullptr;	
+	Transform* transform = nullptr;		
+
+	bool isGrounded = false;
+	float jumpTime = 1.f; 
 };
 

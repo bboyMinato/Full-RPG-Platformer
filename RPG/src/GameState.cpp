@@ -24,7 +24,7 @@ void GameState::Init()
 	_levelMap = MapParser::GetInstance()->GetMap("Level");	
 	Engine::GetInstance()->SetMap(_levelMap);
 
-	_data->_soundManager.LoadMusic("Rising Sun", "assets\\SFX\\Rising Sun.mp3");
+	_data->_soundManager.LoadMusic("Ambient 1", "assets\\SFX\\Ambient 1.mp3");
 	_data->_soundManager.SetMusicVolume(20);
 	_data->_soundManager.PlayMusic(-1);
 	
@@ -32,21 +32,13 @@ void GameState::Init()
 
 	Player = new Entity();
 	manager->AddEntity(Player);
-
-	Test = new Entity(); 
-	manager->AddEntity(Test);
 	
-	Player->GetComponent<Transform>().position = Vector2Df(1000, 500);
-	SpriteAnimation sprite = Player->AddComponent<SpriteAnimation>("EnchantressIdle", 60, 0, 5, true);
-	Player->AddComponent<RigidBody>(0.0f);
+	Player->GetComponent<Transform>().Position = Vector2Df(1000, 500);
+	SpriteAnimation PlayerSprite = Player->AddComponent<SpriteAnimation>("EnchantressIdle", 60, 0, 5, true);
+	Player->AddComponent<RigidBody>(0.05f);
 	Player->AddComponent<SpriteAnimation>("EnchantressIdle", 60, 0, 5, true);
-	Player->AddComponent<BoxCollider2D>(sprite.GetWidth(), sprite.GetHeight());
+	Player->AddComponent<BoxCollider2D>(PlayerSprite.GetWidth(), PlayerSprite.GetHeight());
 	Player->AddComponent<PlayerController>();
-
-	Test->GetComponent<Transform>().position = Vector2Df(500, 100);
-	SpriteAnimation TestSprite = Test->AddComponent<SpriteAnimation>("EnchantressIdle", 60, 0, 5, true);	
-	Test->AddComponent<SpriteAnimation>("EnchantressIdle", 60, 0, 5, true);
-	//Test->AddComponent<BoxCollider2D>(TestSprite.GetWidth(), TestSprite.GetHeight());
 }
 
 void GameState::HandleEvents()
@@ -67,7 +59,7 @@ void GameState::Render(float dt)
 {
 	SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(Engine::GetInstance()->GetRenderer());
-			
+		
 	_levelMap->Render();		
 	manager->Draw();
 
