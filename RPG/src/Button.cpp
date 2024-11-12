@@ -1,6 +1,6 @@
 #include "..\include\Button.h"
 #include "..\include\TextureManager.h"
-#include "..\include\SplashState.h"
+#include "SplashState.h"
 #include "..\include\Input.h"
 
 Button::Button(std::string id, int x, int y) 
@@ -25,7 +25,7 @@ Button::~Button()
 {
 }
 
-void Button::Render(std::string id)
+void Button::Render(std::string id) const
 {
 	TextureManager::GetInstance()->Draw(id, _rect.x, _rect.y, _rect.w, _rect.h);
 }

@@ -38,8 +38,8 @@ public:
 	Entity* entity = nullptr;
 
 	virtual bool Init() { return true; }
-	virtual void Draw() {}
-	virtual void Update() {}
+	virtual void Draw(float dt) {}
+	virtual void Update(float dt) {}
 private:
 
 };

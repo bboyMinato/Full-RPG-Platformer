@@ -8,7 +8,7 @@ public:
 	static Input* GetInstance() { return _instance = (_instance != nullptr) ? _instance : new Input(); }
 
 	bool GetKeyDown(SDL_Scancode key);		
-	bool GetMouseDown(int button);
+	bool GetMouseDown(int button) const;
 	void HandleEvents();
 	Vector2D<int> GetMousePosition();
 	

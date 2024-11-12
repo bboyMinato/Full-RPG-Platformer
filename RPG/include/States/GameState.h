@@ -5,12 +5,15 @@
 #include "GameMap.h"
 #include "ECS.h"
 #include "EntityManager.h"
+#include "CollisionSystem.h"
+#include "KeyMapping.h"
 
 class GameState : public CGameState
 {
 public:
 	GameState() {};
 	GameState(GameDataRef data);
+	~GameState();
 
 	void Init();
 
@@ -25,10 +28,13 @@ public:
 private:
 	GameDataRef _data;
 	EntityManager* manager = nullptr;
+	CollisionSystem* collisionSystem = nullptr;
 	SpriteAnimation* _animation = nullptr;
 	GameMap* _levelMap = nullptr;
 	
 	Entity* Player = nullptr;
-	Entity* Test = nullptr;
+	Entity* Enemy = nullptr; 
+
+	KeyMapping keyMapping;
 };
 

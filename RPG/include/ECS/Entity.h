@@ -15,27 +15,31 @@ public:
 	template<typename T, typename... TArgs>
 	inline T& AddComponent(TArgs&&... args)
 	{
-		T* component(new T(std::forward<TArgs>(args)...));
+		auto component = std::make_unique<T>(std::forward<TArgs>(args)...);
 		component->entity = this;
-		std::unique_ptr<Component> uptr { component };
-		_components.emplace_back(std::move(uptr));	
 
+		const auto typeID = GetComponentTypeID<T>();
 		if (component->Init())
 		{
-			_componentArray[GetComponentTypeID<T>()] = component;
-			_componentBitset[GetComponentTypeID<T>()] = true;
-			
-			return *component;
+			_componentArray[typeID] = component.get();
+			_componentBitset[typeID] = true;
+			_components.emplace_back(std::move(component));
+			return *static_cast<T*>(_componentArray[typeID]);
 		}
 
-		return *static_cast<T*>(nullptr);
+		throw std::runtime_error("Failed to initialize component");
 	}
 
 	template<typename T>
 	inline T& GetComponent() const
 	{
-		auto ptr(_componentArray[GetComponentTypeID<T>()]);
-		return *reinterpret_cast<T*>(ptr);
+		const auto typeID = GetComponentTypeID<T>();
+        auto ptr = _componentArray[typeID];
+        
+        if (!ptr) 
+            throw std::runtime_error("Component not found");
+        
+        return *static_cast<T*>(ptr);
 	}
 
 	template<typename T>
@@ -54,16 +58,16 @@ public:
 		active = false;
 	}
 
-	inline void Draw()
+	inline void Draw(float dt)
 	{
-		for (auto& component : _components)
-			component->Draw();
+		for (const auto& component : _components)
+			component->Draw(dt);
 	}
 
-	inline void Update()
+	inline void Update(float dt)
 	{
 		for (auto& component : _components)
-			component->Update();
+			component->Update(dt);
 	}
 
 private:

@@ -1,7 +1,7 @@
-#include "..\include\OptionsState.h"
-#include "..\include\MainMenuState.h"
-#include "..\include\TextureManager.h"
-#include "..\include\Input.h"
+#include "OptionsState.h"
+#include "MainMenuState.h"
+#include "TextureManager.h"
+#include "Input.h"
 
 OptionsState::OptionsState(GameDataRef data) : _data(data)
 {
@@ -16,7 +16,7 @@ void OptionsState::HandleEvents()
 {
 	Input::GetInstance()->HandleEvents();
 
-	if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_F1))
+	if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_ESCAPE))
 		_data->_stateManager.PopCurrentState();
 
 	if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_F5))

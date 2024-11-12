@@ -6,10 +6,12 @@
 
 struct TileSet
 {
-	int firstID, lastID;
-	int rowCount, colCount;
-	int tileCount, tileSize;
 	std::string name, source;
+	int firstGID;
+	int tileCount;
+	int colCount; 
+	int lastID;
+	int tileSize;
 };
 
 using TileSetList = std::vector<TileSet>;
@@ -18,17 +20,18 @@ using TileMap = std::vector<std::vector<int>>;
 class TileLayer : public Layer
 {
 public:
-	TileLayer(int tilesize, int rowcount, int colcount, TileMap tilemap, TileSetList tilesets);
+	TileLayer(TileSetList tilesets, TileMap tilemap, int tilesize, int rowcount, int colcount);
 	virtual void Render();
 	virtual void Update();
 	inline TileMap GetTileMap() { return _tileMap; }
-	
 
-	int _tileSize = 0;
-	int _rowCount = 0;
-	int _colCount = 0;
 private:	
+	int _tileSize;
+	int _rowCount;
+	int _colCount;
 	TileMap _tileMap;
 	TileSetList _tileSets;
+
+	void LoadTilesetTextures();
 };
 

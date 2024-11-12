@@ -24,8 +24,8 @@ public:
 		texture = TextureManager::GetInstance()->GetTexture(textureID);
 		SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 
-		dstRect.x = static_cast<int>(transform->position.X);
-		dstRect.y = static_cast<int>(transform->position.Y);
+		dstRect.x = static_cast<int>(transform->Position.X);
+		dstRect.y = static_cast<int>(transform->Position.Y);
 		dstRect.w = static_cast<int>(width * transform->scale.X);
 		dstRect.h = static_cast<int>(height * transform->scale.Y);
 
@@ -37,15 +37,15 @@ public:
 		return true;
 	}
 	
-	void Draw() override final
+	void Draw(float dt) override final
 	{
 		SDL_RenderCopyEx(rTarget, texture, &srcRect, &dstRect, transform->rotation, NULL, flip);
 	}
 
-	void Update() override final
+	void Update(float dt) override final
 	{
-		dstRect.x = static_cast<int>(transform->position.X);
-		dstRect.y = static_cast<int>(transform->position.Y);
+		dstRect.x = static_cast<int>(transform->Position.X);
+		dstRect.y = static_cast<int>(transform->Position.Y);
 		dstRect.w = static_cast<int>(width * transform->scale.X);
 		dstRect.h = static_cast<int>(height * transform->scale.Y);
 	}

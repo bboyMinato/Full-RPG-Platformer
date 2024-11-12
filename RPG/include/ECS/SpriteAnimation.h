@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Transform.h"
 #include "TextureManager.h"
+#include "RigidBody.h"
 
 class SpriteAnimation : public Component
 {
@@ -32,25 +33,34 @@ public:
 		srcRect.w = width / frameCount;
 		srcRect.h = height;
 
-		dstRect.x = static_cast<int>(transform->position.X);
-		dstRect.y = static_cast<int>(transform->position.Y);
+		dstRect.x = static_cast<int>(transform->Position.X);
+		dstRect.y = static_cast<int>(transform->Position.Y);
 		dstRect.w = static_cast<int>(width * transform->scale.X);
 		dstRect.h = static_cast<int>(height * transform->scale.Y);
 
 		return true;
 	}
 
-	void Update() override final
+	void Update(float dt) override final
 	{
 		currentFrame = (SDL_GetTicks() / animSpeed) % frameCount;
-
-		dstRect.x = static_cast<int>(transform->position.X);
-		dstRect.y = static_cast<int>(transform->position.Y);
+		
+		dstRect.x = static_cast<int>(transform->Position.X);
+		dstRect.y = static_cast<int>(transform->Position.Y);
 		dstRect.w = static_cast<int>(width * transform->scale.X);
 		dstRect.h = static_cast<int>(height * transform->scale.Y);
+
+		if (entity->GetComponent<RigidBody>().IsJumping())
+		{			
+			textureID = "EnchantressJump";			
+		}
+		else
+		{
+			textureID = "EnchantressIdle";
+		}
 	}
 
-	void Draw() override final
+	void Draw(float dt) override final
 	{		
 		TextureManager::GetInstance()->DrawFrame(textureID, dstRect.x, dstRect.y, srcRect.w, srcRect.h, spriteRow, currentFrame);
 	}

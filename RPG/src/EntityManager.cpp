@@ -1,16 +1,16 @@
 #include "EntityManager.h"
 #include "Entity.h"
 
-void EntityManager::Draw()
+void EntityManager::Draw(float dt)
 {
 	for (auto& entity : entities)
-		entity->Draw();
+		entity->Draw(dt);
 }
 
-void EntityManager::Update()
+void EntityManager::Update(float dt)
 {
 	for (auto& entity : entities)
-		entity->Update();
+		entity->Update(dt);
 }
 
 void EntityManager::Refresh()
@@ -19,8 +19,7 @@ void EntityManager::Refresh()
 
 void EntityManager::AddEntity(Entity* entity)
 {
-	std::unique_ptr<Entity> uniquePtr{entity};
-	entities.emplace_back(std::move(uniquePtr));
+	entities.emplace_back(entity);
 }
 
 void EntityManager::EraseEntity(Entity* entity)

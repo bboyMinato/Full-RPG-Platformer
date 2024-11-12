@@ -10,4 +10,5 @@
 	<texture id="PlayButton" source=".\assets\img\buttons\PlayButton.png"/>
 	
 	<texture id="EnchantressIdle" source=".\assets\img\characters\Enchantress\Idle.png"/>
+	<texture id="EnchantressJump" source=".\assets\img\characters\Enchantress\Jump.png"/>
 </textures>

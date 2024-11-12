@@ -27,16 +27,16 @@
     <ClCompile Include="src\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CStateManager.cpp">
+    <ClCompile Include="src\States\CStateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SplashState.cpp">
+    <ClCompile Include="src\States\SplashState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MainMenuState.cpp">
+    <ClCompile Include="src\States\MainMenuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SoundManager.cpp">
+    <ClCompile Include="src\States\SoundManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Button.cpp">
@@ -45,7 +45,7 @@
     <ClCompile Include="src\Mouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameState.cpp">
+    <ClCompile Include="src\States\GameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TileLayer.cpp">
@@ -72,7 +72,7 @@
     <ClCompile Include="src\Text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OptionsState.cpp">
+    <ClCompile Include="src\States\OptionsState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\EntityManager.cpp">
@@ -359,16 +359,16 @@
     <ClInclude Include="include\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\CGameState.h">
+    <ClInclude Include="include\States\CGameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\CStateManager.h">
+    <ClInclude Include="include\States\CStateManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\SplashState.h">
+    <ClInclude Include="include\States\SplashState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\MainMenuState.h">
+    <ClInclude Include="include\States\MainMenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\SoundManager.h">
@@ -383,7 +383,7 @@
     <ClInclude Include="include\Vector2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\GameState.h">
+    <ClInclude Include="include\States\GameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Layer.h">
@@ -413,7 +413,7 @@
     <ClInclude Include="include\Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\OptionsState.h">
+    <ClInclude Include="include\States\OptionsState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ECS\ECS.h">
@@ -444,6 +444,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CollisionSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KeyMapping.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -488,6 +494,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\OptionsMenuBackground.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\img\characters\Enchantress\Jump.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\img\characters\Enchantress\Idle.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

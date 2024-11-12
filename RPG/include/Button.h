@@ -13,7 +13,7 @@ public:
 	Button() {}
 	~Button();
 	
-	void Render(std::string id);
+	void Render(std::string id) const;
 	void Update();
 
 	inline SDL_Rect& GetRect() { return _rect; }

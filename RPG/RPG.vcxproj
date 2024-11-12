@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;include\ECS;vendor\SDL2 TTF\include;vendor\SDL2\include;vendor\TinyXML;vendor\SDL2 Mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include\States;include;include\ECS;vendor\SDL2 TTF\include;vendor\SDL2\include;vendor\TinyXML;vendor\SDL2 Mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,16 +136,16 @@
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Engine.cpp" />
-    <ClCompile Include="src\GameState.cpp" />
+    <ClCompile Include="src\States\GameState.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\CStateManager.cpp" />
-    <ClCompile Include="src\MainMenuState.cpp" />
+    <ClCompile Include="src\States\CStateManager.cpp" />
+    <ClCompile Include="src\States\MainMenuState.cpp" />
     <ClCompile Include="src\MapParser.cpp" />
     <ClCompile Include="src\Mouse.cpp" />
-    <ClCompile Include="src\OptionsState.cpp" />
-    <ClCompile Include="src\SoundManager.cpp" />
-    <ClCompile Include="src\SplashState.cpp" />
+    <ClCompile Include="src\States\OptionsState.cpp" />
+    <ClCompile Include="src\States\SoundManager.cpp" />
+    <ClCompile Include="src\States\SplashState.cpp" />
     <ClCompile Include="src\Text.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\TileLayer.cpp" />
@@ -157,7 +157,9 @@
   <ItemGroup>
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\Camera.h" />
-    <ClInclude Include="include\CGameState.h" />
+    <ClInclude Include="include\CollisionSystem.h" />
+    <ClInclude Include="include\KeyMapping.h" />
+    <ClInclude Include="include\States\CGameState.h" />
     <ClInclude Include="include\ECS\BoxCollider2D.h" />
     <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\ECS\ECS.h" />
@@ -168,17 +170,17 @@
     <ClInclude Include="include\ECS\Entity.h" />
     <ClInclude Include="include\EntityManager.h" />
     <ClInclude Include="include\GameMap.h" />
-    <ClInclude Include="include\GameState.h" />
+    <ClInclude Include="include\States\GameState.h" />
     <ClInclude Include="include\Input.h" />
-    <ClInclude Include="include\CStateManager.h" />
+    <ClInclude Include="include\States\CStateManager.h" />
     <ClInclude Include="include\Layer.h" />
-    <ClInclude Include="include\MainMenuState.h" />
+    <ClInclude Include="include\States\MainMenuState.h" />
     <ClInclude Include="include\MapParser.h" />
     <ClInclude Include="include\Mouse.h" />
-    <ClInclude Include="include\OptionsState.h" />
+    <ClInclude Include="include\States\OptionsState.h" />
     <ClInclude Include="include\Point.h" />
     <ClInclude Include="include\SoundManager.h" />
-    <ClInclude Include="include\SplashState.h" />
+    <ClInclude Include="include\States\SplashState.h" />
     <ClInclude Include="include\ECS\Sprite.h" />
     <ClInclude Include="include\Text.h" />
     <ClInclude Include="include\TextureManager.h" />
@@ -283,6 +285,8 @@
     <Image Include="assets\Enchantress\Idle.png" />
     <Image Include="assets\ExitButton.png" />
     <Image Include="assets\faith-spark-background1.jpg" />
+    <Image Include="assets\img\characters\Enchantress\Idle.png" />
+    <Image Include="assets\img\characters\Enchantress\Jump.png" />
     <Image Include="assets\Map\Buildings.png" />
     <Image Include="assets\Map\Hive.png" />
     <Image Include="assets\Map\Interior-01.png" />

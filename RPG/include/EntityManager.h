@@ -10,14 +10,16 @@ public:
 	EntityManager() = default;
 	~EntityManager() = default;
 
-	void Draw();
-	void Update();
+	void Draw(float dt);
+	void Update(float dt);
 	void Refresh();
 
 	void AddEntity(Entity* entity);
 	void EraseEntity(Entity* entity);
 	Entity* CloneEntity(Entity* entity);
 
+	const std::vector<Entity*>& GetEntites() { return entities; }
+
 private:
-	std::vector<std::unique_ptr<Entity>> entities;
+	std::vector<Entity*> entities;
 };

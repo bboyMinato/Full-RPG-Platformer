@@ -1,4 +1,4 @@
-#include "..\include\CStateManager.h"
+#include "CStateManager.h"
 #include <iostream>
 
 CStateManager::CStateManager()

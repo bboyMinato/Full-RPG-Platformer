@@ -9,17 +9,11 @@
 class BoxCollider2D : public Component
 {
 public:
-	BoxCollider2D(int Width, int Height)
-	{
-		Box.w = Width;
-		Box.h = Height;
-	}
+	BoxCollider2D(int width, int height)
+		: Box{ 0, 0, width, height } {}
 
-	BoxCollider2D(int Width, int Height, std::string Tag) : CollisionTag(Tag)
-	{
-		Box.w = Width;
-		Box.h = Height;
-	}
+	BoxCollider2D(int width, int height, const std::string& tag)
+		: Box{ 0, 0, width, height }, CollisionTag(tag) {}
 
 	~BoxCollider2D() = default;
 
@@ -35,25 +29,37 @@ public:
 		return true;
 	}
 
-	void Draw() override final
+	void Draw(float dt) override final
 	{
 		TextureManager::GetInstance()->Draw(Box);		
 	}
 
-	void Update() override final
+	void Update(float dt) override final
 	{
-		Box.x = static_cast<int>(transform->position.X);
-		Box.y = static_cast<int>(transform->position.Y);			
+		Box.x = static_cast<int>(transform->Position.X);
+		Box.y = static_cast<int>(transform->Position.Y);			
 	}
 
-	inline std::string GetCollisionTag() const 
+	inline const std::string& GetCollisionTag() const 
 	{ 
 		return CollisionTag; 
 	}	
 
-	inline SDL_Rect GetBoxCollider() const
+	inline const SDL_Rect& GetBoxCollider() const
 	{ 
 		return Box; 
+	}
+
+	void SetDimensions(int width, int height)
+	{
+		Box.w = width;
+		Box.h = height;
+	}
+
+	void SetPosition(float x, float y)
+	{
+		Box.x = static_cast<int>(x);
+		Box.y = static_cast<int>(y);
 	}
 
 private:
