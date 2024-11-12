@@ -1,7 +1,7 @@
-#include "..\include\OptionsState.h"
-#include "..\include\MainMenuState.h"
-#include "..\include\TextureManager.h"
-#include "..\include\Input.h"
+#include "OptionsState.h"
+#include "MainMenuState.h"
+#include "TextureManager.h"
+#include "Input.h"
 
 OptionsState::OptionsState(GameDataRef data) : _data(data)
 {

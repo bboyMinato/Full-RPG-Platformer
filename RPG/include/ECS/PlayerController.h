@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "Transform.h"
 #include "Input.h"
+#include "KeyMapping.h"
 
 class PlayerController : public Component
 {
@@ -18,24 +19,32 @@ public:
 		return false;
 	}
 
-	void Update() override final
+	void Update(float dt) override final
 	{
-		if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D))
+		const Uint8* keystate = SDL_GetKeyboardState(NULL);
+
+		if (keyMapping.IsActionPressed(GameAction::MoveRight, keystate))
 		{
-			entity->GetComponent<RigidBody>().SetForceX(1);
+			entity->GetComponent<RigidBody>().SetForceX(800);
 		}
 
-		if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A))
+		if (keyMapping.IsActionPressed(GameAction::MoveLeft, keystate))
 		{
-			entity->GetComponent<RigidBody>().SetForceX(-1);
+			entity->GetComponent<RigidBody>().SetForceX(-800);
 		}
 
-		if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE) && entity->GetComponent<RigidBody>().IsGrounded())
+		if (keyMapping.IsActionPressed(GameAction::Jump, keystate) && entity->GetComponent<RigidBody>().IsGrounded())
 		{
-			entity->GetComponent<RigidBody>().Jump();		
-		}		
+			//entity->GetComponent<RigidBody>().Jump();		
+		}
 	}
 	
+	void SetKeyMapping(KeyMapping& keyMapping)
+	{
+		this->keyMapping = keyMapping;
+	}
+
 private:
 	Transform* transform = nullptr;	
+	KeyMapping keyMapping;
 };

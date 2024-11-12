@@ -1,6 +1,6 @@
-#include "..\include\SplashState.h"
-#include "..\include\Input.h"
-#include "..\include\MainMenuState.h"
+#include "SplashState.h"
+#include "Input.h"
+#include "MainMenuState.h"
 
 SplashState::SplashState(GameDataRef data) : _data(data)
 {

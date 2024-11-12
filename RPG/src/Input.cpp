@@ -17,7 +17,7 @@ bool Input::GetKeyDown(SDL_Scancode key)
     return false;
 }
 
-bool Input::GetMouseDown(int button)
+bool Input::GetMouseDown(int button) const
 {
     if (_buttonstates == button)
         return true;

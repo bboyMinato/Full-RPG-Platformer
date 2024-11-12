@@ -16,12 +16,13 @@ public:
 	// -1 means plays infinitely 
 	void PlayMusic(int loops);
 
+	// Pause current music 
 	void PauseMusic();
 
 	// Set volume of music (range from 0 to 128)
 	void SetMusicVolume(int volume);
 
-private:
+private:	
 	Mix_Music* _music = nullptr;
 
 	std::map<std::string, Mix_Music*> _musicMap;

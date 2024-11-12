@@ -37,12 +37,12 @@ public:
 		return true;
 	}
 	
-	void Draw() override final
+	void Draw(float dt) override final
 	{
 		SDL_RenderCopyEx(rTarget, texture, &srcRect, &dstRect, transform->rotation, NULL, flip);
 	}
 
-	void Update() override final
+	void Update(float dt) override final
 	{
 		dstRect.x = static_cast<int>(transform->Position.X);
 		dstRect.y = static_cast<int>(transform->Position.Y);
