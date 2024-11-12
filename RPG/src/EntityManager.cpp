@@ -4,7 +4,13 @@
 void EntityManager::Draw(float dt)
 {
 	for (auto& entity : entities)
-		entity->Draw(dt);
+	{
+		if (entity != nullptr) // Ensure entity is valid
+		{
+			entity->Draw(dt);
+		}
+	}
+
 }
 
 void EntityManager::Update(float dt)
