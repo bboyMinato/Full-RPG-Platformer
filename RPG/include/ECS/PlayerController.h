@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "Input.h"
 #include "KeyMapping.h"
+#include "RigidBody.h"
 
 class PlayerController : public Component
 {
@@ -10,7 +11,6 @@ public:
 	bool Init() override final
 	{
 		transform = &entity->GetComponent<Transform>();
-
 		if (transform != nullptr)
 		{
 			return true;
@@ -25,17 +25,20 @@ public:
 
 		if (keyMapping.IsActionPressed(GameAction::MoveRight, keystate))
 		{
-			entity->GetComponent<RigidBody>().SetForceX(800);
+			entity->GetComponent<RigidBody>().SetForceX(400);
+		}
+		else if (keyMapping.IsActionPressed(GameAction::MoveLeft, keystate))
+		{
+			entity->GetComponent<RigidBody>().SetForceX(-400);
+		}
+		else
+		{
+			entity->GetComponent<RigidBody>().SetForce(0);
 		}
 
-		if (keyMapping.IsActionPressed(GameAction::MoveLeft, keystate))
+		if (keyMapping.IsActionPressed(GameAction::Jump, keystate))
 		{
-			entity->GetComponent<RigidBody>().SetForceX(-800);
-		}
-
-		if (keyMapping.IsActionPressed(GameAction::Jump, keystate) && entity->GetComponent<RigidBody>().IsGrounded())
-		{
-			//entity->GetComponent<RigidBody>().Jump();		
+			entity->GetComponent<RigidBody>().Jump();		
 		}
 	}
 	

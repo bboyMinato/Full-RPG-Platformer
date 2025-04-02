@@ -10,7 +10,6 @@ void EntityManager::Draw(float dt)
 			entity->Draw(dt);
 		}
 	}
-
 }
 
 void EntityManager::Update(float dt)

@@ -24,6 +24,7 @@ public:
 	void Clean() {}
 	
 	GameMap* GetMap() { return _levelMap; }
+	void UpdateCameraPosition(float dt);
 	
 private:
 	GameDataRef _data;
@@ -36,5 +37,6 @@ private:
 	Entity* Enemy = nullptr; 
 
 	KeyMapping keyMapping;
+	Point playerPos;
 };
 

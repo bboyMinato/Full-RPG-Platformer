@@ -27,8 +27,10 @@ public:
 		return _mapLayers; 
 	}
 
+	std::vector<SDL_Rect> GetCollisionObjects() { return _collisionObjects; }
+
 private:
 	friend class MapParser;
 	std::vector<Layer*> _mapLayers;
+	std::vector<SDL_Rect> _collisionObjects;
 };
-

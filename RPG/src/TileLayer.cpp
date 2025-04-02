@@ -1,7 +1,7 @@
 #include "..\include\TileLayer.h"
 
-TileLayer::TileLayer(TileSetList tilesets, TileMap tilemap, int tilesize, int rowcount, int colcount)
-	: _tileSize(tilesize), _rowCount(rowcount), _colCount(colcount), _tileMap(tilemap), _tileSets(tilesets)
+TileLayer::TileLayer(TileSetList tilesets, TileMap tilemap, std::string layerName, int tilesize, int rowcount, int colcount)
+	: _tileSize(tilesize), name(layerName), _rowCount(rowcount), _colCount(colcount), _tileMap(tilemap), _tileSets(tilesets)
 {
 	LoadTilesetTextures();
 }

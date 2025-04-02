@@ -25,7 +25,7 @@ public:
 		}
 
 		transform = &entity->GetComponent<Transform>();
-
+		
 		return true;
 	}
 
@@ -37,7 +37,7 @@ public:
 	void Update(float dt) override final
 	{
 		Box.x = static_cast<int>(transform->Position.X);
-		Box.y = static_cast<int>(transform->Position.Y);			
+		Box.y = static_cast<int>(transform->Position.Y);	
 	}
 
 	inline const std::string& GetCollisionTag() const 

@@ -5,17 +5,18 @@
 #include "BoxCollider2D.h"
 #include "Collision.h"
 #include "Engine.h"
+#include "Globals.h"
 
-constexpr float GRAVITY = 300.f;
-constexpr float JUMP_FORCE = -380.f; 
-constexpr float MAX_JUMP_HEIGHT = 200.f;
+constexpr float GRAVITY = 180.f;
+constexpr float JUMP_FORCE = -550.f;
+constexpr float MAX_JUMP_HEIGHT = 80.f;
 constexpr float DEFAULT_MASS = 1.0f;
 constexpr float DEFAULT_GRAVITY_SCALE = 1.0f;
 
 class RigidBody : public Component
 {
 public:
-	RigidBody() = default;	
+	RigidBody() = default;
 	virtual ~RigidBody() = default;
 
 	explicit RigidBody(float gravity_scale) : gravityScale(gravity_scale), mass(DEFAULT_MASS) {}
@@ -23,30 +24,31 @@ public:
 	bool Init() override final
 	{
 		transform = &entity->GetComponent<Transform>();
+				
 		return true;
 	}
 
 	void Update(float dt) override final
-	{	
+	{
 		SDL_Rect playerCollider = entity->GetComponent<BoxCollider2D>().GetBoxCollider();
 
-		ApplyForces();
+		//Update jump if the character is jumping
+		UpdateJump(dt);
+
+		ApplyForces(dt);
 
 		// Handle horizontal movement and collision
-		HandleMovement(playerCollider, true);
+		HandleMovement(playerCollider, true, dt);
 
 		// Handle vertical movement and collision
-		HandleMovement(playerCollider, false);
-
-		 //Update jump if the character is jumping
-		UpdateJump();
+		HandleMovement(playerCollider, false, dt);
 
 		UnsetForce();
 	}
 
 	void SetForce(const Vector2Df f)
 	{
-		force = f; 
+		force = f;
 	}
 
 	void SetForceX(const float f)
@@ -63,10 +65,10 @@ public:
 	{
 		force = Vector2Df(0, 0);
 	}
-	
+
 	void SetVelocityY(const float v)
 	{
-		velocity.Y = v; 
+		velocity.Y = v;
 	}
 
 	void SetVelocityX(const float v)
@@ -75,11 +77,11 @@ public:
 	}
 
 	void Jump()
-	{			
-		if (!isJumping) 
+	{
+		if (isGrounded)
 		{
-			isJumping = true;			
-			jumpVelocity = JUMP_FORCE;			
+			isJumping = true;
+			heightCheck = transform->Position.Y - MAX_JUMP_HEIGHT; // Update height check for jumping
 		}
 	}
 
@@ -92,17 +94,39 @@ public:
 	inline bool IsGrounded() const { return isGrounded; }
 
 private:
-	void ApplyForces()
+	void ApplyForces(float dt)
 	{
-		velocity.X = (force.X - drag.X) * Engine::GetInstance()->GetDeltaTime();
+		velocity.X = (force.X - drag.X) * dt * 2;
 		if (!isGrounded)
 		{
-			velocity.Y = (force.Y + drag.Y + gravityScale * GRAVITY) * Engine::GetInstance()->GetDeltaTime();
+			SetInitialVelocityY(dt);
 		}
 	}
 
-	void HandleMovement(SDL_Rect& playerCollider, bool isHorizontal)
+	void SetInitialVelocityY(float dt)
 	{
+		velocity.Y += (force.Y + drag.Y + gravityScale * GRAVITY) * dt;
+	}
+
+	void UpdateJump(float dt)
+	{
+		if (isJumping && !isGrounded)
+		{
+			if (transform->Position.Y > heightCheck)
+			{
+				force.Y += JUMP_FORCE;
+			}
+			else
+			{
+				isJumping = false;
+				SetInitialVelocityY(dt);
+			}
+		}
+	}
+
+	void HandleMovement(SDL_Rect& playerCollider, bool isHorizontal, float dt)
+	{
+		// Apply movement
 		if (isHorizontal)
 		{
 			LastSafePosition.X = transform->Position.X;
@@ -116,57 +140,72 @@ private:
 			playerCollider.y = transform->Position.Y;
 		}
 
-		if (Collision::GetInstance()->CollisionWithMap(playerCollider))
+		// collider to check collision for next frame
+		SDL_Rect nextCollider = playerCollider;
+
+		// update collider for the next frame
+		nextCollider.x += static_cast<int>(velocity.X * dt);
+		nextCollider.y += static_cast<int>(velocity.Y * dt);
+
+		// Check for collision after applying movement
+		bool isCollidingWithMap = Collision::GetInstance()->CollisionWithMap(nextCollider);
+
+		if (isCollidingWithMap)
 		{
 			if (isHorizontal)
 			{
-				transform->Position.X = LastSafePosition.X;
+				// Move just enough to resolve collision instead of snapping back
+				while (Collision::GetInstance()->CollisionWithMap(playerCollider))
+				{
+					transform->Position.X -= (velocity.X > 0) ? 1 : -1;
+					playerCollider.x = transform->Position.X;
+				}
+
 				velocity.X = 0.0f;
 			}
 			else
 			{
-				transform->Position.Y = LastSafePosition.Y;
+				// Move just enough to resolve collision instead of snapping back
+				while (Collision::GetInstance()->CollisionWithMap(playerCollider))
+				{
+					transform->Position.Y -= (velocity.Y > 0) ? 1 : -1;
+					playerCollider.y = transform->Position.Y;
+				}
+
 				velocity.Y = 0.0f;
-				isGrounded = true;
-				heightCheck = transform->Position.Y - MAX_JUMP_HEIGHT; // Update height check for jumping
+
+				if (LastSafePosition.Y < transform->Position.Y) // Landing on a platform
+				{
+					isGrounded = true;
+					isJumping = false;
+				}
+				else // Hitting ceiling
+				{
+					// Stop upward movement but don't set isJumping to true
+					force.Y = 0.0f;
+					velocity.Y = 0.0f;
+					isJumping = false;
+				}
 			}
 		}
 		else if (!isHorizontal) // If no vertical collision
 		{
 			isGrounded = false;
-		}
+		}		
 	}
 
-	void UpdateJump()
-	{
-		if (isJumping)
-		{
-			if (transform->Position.Y > heightCheck)
-			{
-				velocity.Y += jumpVelocity * Engine::GetInstance()->GetDeltaTime();
-			}
-			else
-			{
-				// Stop the jump after reaching the maximum jump height
-				isJumping = false;
-				velocity.Y = gravityScale * GRAVITY * Engine::GetInstance()->GetDeltaTime();
-			}
-
-			transform->TranslateY(velocity.Y);
-		}
-	}
-
+private:
 	float gravityScale = DEFAULT_GRAVITY_SCALE;
 	float mass = DEFAULT_MASS;
 	Vector2Df drag = Vector2Df();
 	Vector2Df force = Vector2Df();
 	Vector2Df velocity = Vector2Df();
-	Vector2Df LastSafePosition = Vector2Df();	
+	Vector2Df LastSafePosition = Vector2Df();
 
-	Transform* transform = nullptr;		
+	Transform* transform = nullptr;
+	BoxCollider2D* box = nullptr;
 
 	bool isGrounded = false;			 // Flag to track if the character is on the ground
-	bool isJumping = false;				 // Flag to track if the character is jumping
-	float jumpVelocity = 0.0f;			 // Initial jump velocity		
-	float heightCheck = 0.0f; 
+	bool isJumping = false;				 // Flag to track if the character is jumping	
+	float heightCheck = 0.0f;			 // Flag to track how high can character jump
 };

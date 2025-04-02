@@ -5,7 +5,9 @@ MapParser* MapParser::_instance = nullptr;
 MapParser* MapParser::GetInstance()
 {
     if (_instance == nullptr)
+    {
         _instance = new MapParser();
+    }       
 
     return _instance;
 }
@@ -22,7 +24,9 @@ void MapParser::Clean()
 {
     std::map<std::string, GameMap*>::iterator it;
     for (it = _maps.begin(); it != _maps.end(); it++)
+    {
         it->second = nullptr;
+    }        
 }
 
 bool MapParser::Parse(std::string id, std::string source)
@@ -63,6 +67,10 @@ bool MapParser::Parse(std::string id, std::string source)
         {
             TileLayer* tilelayer = ParseTileLayer(e, tilesets, tileSize, rowCount, colCount);
             gameMap->_mapLayers.push_back(tilelayer);
+        }        
+        else if (std::string(e->Attribute("name")) == "Collision")
+        {
+            ParseCollisionObjects(e, gameMap);
         }
     }
 
@@ -118,6 +126,14 @@ TileSet MapParser::ParseTileset(TiXmlElement* xmlTileset)
 
 TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, TileSetList tilesets, int tilesize, int rowcount, int colcount)
 {
+    const char* layerName = xmlLayer->Attribute("name");
+    if (!layerName)
+    {
+        std::cout << "Layer is missing a name in Tiled map" << std::endl;
+    }
+
+    std::string layerNameStr = layerName;
+
     // TileMap = std::vector<std::vector<int>>  
     TileMap tileMap(rowcount, std::vector<int>(colcount, 0));
 
@@ -141,5 +157,21 @@ TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, TileSetList tileset
         }
     }
 
-    return (new TileLayer(tilesets, tileMap, tilesize, rowcount, colcount));
+    return (new TileLayer(tilesets, tileMap, layerNameStr, tilesize, rowcount, colcount));
+}
+
+void MapParser::ParseCollisionObjects(TiXmlElement* objectGroupElement, GameMap* gameMap)
+{
+    for (TiXmlElement* object = objectGroupElement->FirstChildElement("object"); object != nullptr; object = object->NextSiblingElement("object"))
+    {
+        float x, y, width, height;
+
+        if (object->QueryFloatAttribute("x", &x) != TIXML_SUCCESS) x = 0;
+        if (object->QueryFloatAttribute("y", &y) != TIXML_SUCCESS) y = 0;
+        if (object->QueryFloatAttribute("width", &width) != TIXML_SUCCESS) width = 0;
+        if (object->QueryFloatAttribute("height", &height) != TIXML_SUCCESS) height = 0;
+
+        SDL_Rect collisionBox = { x, y, width, height };
+        gameMap->_collisionObjects.emplace_back(collisionBox);
+    }
 }

@@ -4,8 +4,7 @@ Collision* Collision::_instance = nullptr;
 
 Collision::Collision()
 {
-    _collisionLayer = (TileLayer*)Engine::GetInstance()->GetMap()->GetMapLayers().back();
-    _collisionTileMap = _collisionLayer->GetTileMap();
+    _collisionObjects = Engine::GetInstance()->GetMap()->GetCollisionObjects();
 }
 
 bool Collision::AABB(const SDL_Rect rectA, const SDL_Rect rectB)
@@ -18,31 +17,14 @@ bool Collision::AABB(const SDL_Rect rectA, const SDL_Rect rectB)
 
 bool Collision::CollisionWithMap(SDL_Rect rectA)
 {
-    const int tileSize = 16;
-    const int rowCount = 62;
-    const int colCount = 90;
-
-    int left_tile = rectA.x / tileSize;
-    int right_tile = (rectA.x + rectA.w) / tileSize;
-
-    int top_tile = rectA.y / tileSize;
-    int bottom_tile = (rectA.y + rectA.h) / tileSize;
-
-    // Clamp tile indices to avoid accessing outside the array bounds
-    left_tile = std::max(0, left_tile);
-    right_tile = std::min(colCount - 1, right_tile);
-    top_tile = std::max(0, top_tile);
-    bottom_tile = std::min(rowCount - 1, bottom_tile);
-
-    // Iterate over the tiles within the specified range
-    for (int i = left_tile; i <= right_tile; i++)
+    for (const auto& box : _collisionObjects)
     {
-        for (int j = top_tile; j <= bottom_tile; j++)
+        SDL_Rect collisionRect = { box.x, box.y, box.w, box.h };
+        if (AABB(rectA, collisionRect))
         {
-            if (_collisionTileMap[j][i] > 0)
-                return true;  // Collision detected
+            return true;  // Stop checking after first collision
         }
     }
 
-    return false;  // No collision detected
+    return false;
 }

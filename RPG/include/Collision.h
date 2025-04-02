@@ -15,8 +15,7 @@ public:
 	
 private:
 	Collision();
-
 	static Collision* _instance; 
-	TileMap _collisionTileMap;
-	TileLayer* _collisionLayer = nullptr;
+
+	std::vector<SDL_Rect> _collisionObjects; 
 };

@@ -25,6 +25,7 @@ private:
 	bool Parse(std::string id, std::string source);
 	TileSet ParseTileset(TiXmlElement* xmlTileset);
 	TileLayer* ParseTileLayer(TiXmlElement* xmlLayer, TileSetList tilesets, int tilesize, int rowcount, int colcount);
+	void ParseCollisionObjects(TiXmlElement* objectGroupElement, GameMap* gameMap);
 
 	static MapParser* _instance;
 	std::map<std::string, GameMap*> _maps;

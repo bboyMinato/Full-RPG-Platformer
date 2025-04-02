@@ -77,7 +77,7 @@ void Engine::Update()
 		_data->_stateManager.GetCurrentState()->HandleEvents();
 		_data->_stateManager.GetCurrentState()->Update(deltaTime);
 		_data->_stateManager.GetCurrentState()->Render(deltaTime);
-
+		
 		// Calculate delay to maintain target frame rate
 		Uint64 frameEndCounter = SDL_GetPerformanceCounter();
 		float frameTime = (float)(frameEndCounter - currentCounter) / freq;

@@ -78,10 +78,12 @@ void GameState::Init()
 	Player->GetComponent<Transform>().Position = Vector2Df(1000, 500);
 	Player->GetComponent<Transform>().scale.X = 5;
 	SpriteAnimation PlayerSprite = Player->AddComponent<SpriteAnimation>("EnchantressIdle", 60, 0, 5, true);	
-	Player->AddComponent<RigidBody>(1.f);
-	Player->AddComponent<SpriteAnimation>("EnchantressIdle", 60, 0, 5, true);
 	Player->AddComponent<BoxCollider2D>(PlayerSprite.GetWidth(), PlayerSprite.GetHeight(), "Character");
 	Player->AddComponent<PlayerController>().SetKeyMapping(keyMapping);
+	Player->AddComponent<RigidBody>(1.f);	
+	Player->AddComponent<SpriteAnimation>("EnchantressIdle", 60, 0, 5, true);
+
+	Camera::GetInstance()->SetTarget(&playerPos);
 
 	Enemy->GetComponent<Transform>().Position = Vector2Df(300, 500);
 	Enemy->GetComponent<Transform>().scale.X = 5;
@@ -103,6 +105,8 @@ void GameState::HandleEvents()
 
 void GameState::Update(float dt)
 {	
+	UpdateCameraPosition(dt);
+
 	_levelMap->Update();
 	manager->Update(dt);	
 	collisionSystem->Update(manager->GetEntites());
@@ -113,8 +117,21 @@ void GameState::Render(float dt)
 	SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(Engine::GetInstance()->GetRenderer());
 		
-	_levelMap->Render();		
+	_levelMap->Render();	
 	manager->Draw(dt);
 	
 	SDL_RenderPresent(Engine::GetInstance()->GetRenderer());
+}
+
+void GameState::UpdateCameraPosition(float dt)
+{
+	// Define a smaller offset for the camera
+	const float cameraOffsetX = static_cast<float>(Globals::SCREEN_WIDTH) / 6;
+	const float cameraOffsetY = static_cast<float>(Globals::SCREEN_HEIGHT) / 6;
+
+	// Adjust the camera's target position based on the smaller offset
+	playerPos.X = Player->GetComponent<Transform>().Position.X - cameraOffsetX;
+	playerPos.Y = Player->GetComponent<Transform>().Position.Y - cameraOffsetY;
+
+	Camera::GetInstance()->Update(dt);
 }

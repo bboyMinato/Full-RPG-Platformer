@@ -24,7 +24,7 @@ void CStateManager::ProccessStateChange()
 	{
 		_states.pop();
 
-		if (!_states.empty());		
+		if (!_states.empty())		
 			_states.top()->Resume();		
 
 		_isRemoving = false;
